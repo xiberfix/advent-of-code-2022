@@ -1,6 +1,9 @@
+import std/strutils
 import std/strformat
 import std/os
 
+
+# Testing
 
 func row[T](solution: string, file: string, value: T, expected: T): string =
     let status = value == expected
@@ -17,3 +20,17 @@ template test*[T](solution: proc(input: string): T, file: string, expected: T) =
 
     let value = solution(input)
     echo row(astToStr(solution), file, value, expected)
+
+
+# Parsing
+
+func blocks*(input: string): seq[string] = input.strip.split("\n\n")
+
+func lines*(input: string): seq[string] = input.strip.split("\n")
+
+
+# Math
+
+template sum*(sequence): untyped = foldl(sequence, a + b, 0)
+
+template product*(sequence): untyped = foldl(sequence, a * b, 1)
