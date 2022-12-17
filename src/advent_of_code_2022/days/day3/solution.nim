@@ -1,10 +1,9 @@
-import ../../utils
-import std/sequtils
-import std/sets
+import std/[sequtils, setutils]
 import itertools
+import ../../utils
 
 
-func cost(c: char): int =
+func priority(c: char): int =
     case c
     of 'a'..'z': ord(c) - ord('a') + 1
     of 'A'..'Z': ord(c) - ord('A') + 1 + 26
@@ -14,23 +13,21 @@ func cost(c: char): int =
 func part1(input: string): int =
     func pick(s: string): char =
         let n = s.len
-        let a = s[0 ..< n div 2].toHashSet
-        let b = s[n div 2 ..< n].toHashSet
-        var rv = a * b
-        rv.pop
+        let a = s[0 ..< n div 2].toSet
+        let b = s[n div 2 ..< n].toSet
+        (a * b).peek
 
-    input.lines.mapIt(it.pick.cost).sum
+    input.lines.mapIt(it.pick.priority).sum
 
 
 func part2(input: string): int =
     func pick(xs: seq[string]): char =
-        let a = xs[0].toHashSet
-        let b = xs[1].toHashSet
-        let c = xs[2].toHashSet
-        var rv = a * b * c
-        rv.pop
+        let a = xs[0].toSet
+        let b = xs[1].toSet
+        let c = xs[2].toSet
+        (a * b * c).peek
 
-    input.lines.chunked(3).toSeq.mapIt(it.pick.cost).sum
+    input.lines.chunked(3).toSeq.mapIt(it.pick.priority).sum
 
 
 test(part1, "example", 157)

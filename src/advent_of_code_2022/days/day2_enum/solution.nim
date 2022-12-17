@@ -1,13 +1,26 @@
-import ../../utils
-import std/sequtils
+import std/[sequtils]
 import fusion/matching
-
 {.experimental: "caseStmtMacros".}
+import ../../utils
 
 
 type
     Piece = enum Rock, Paper, Scissors
     Result = enum Loss, Draw, Win
+
+func parsePiece(c: char): Piece =
+    case c
+    of 'A', 'X': Rock
+    of 'B', 'Y': Paper
+    of 'C', 'Z': Scissors
+    else: raise
+
+func parseResult(c: char): Result =
+    case c
+    of 'X': Loss
+    of 'Y': Draw
+    of 'Z': Win
+    else: raise
 
 func play(opp: Piece, me: Piece): Result =
     case (opp, me)
@@ -33,20 +46,6 @@ func score(x: Result): int =
     of Loss: 0
     of Draw: 3
     of Win: 6
-
-func parsePiece(s: char): Piece =
-    case s
-    of 'A', 'X': Rock
-    of 'B', 'Y': Paper
-    of 'C', 'Z': Scissors
-    else: raise
-
-func parseResult(s: char): Result =
-    case s
-    of 'X': Loss
-    of 'Y': Draw
-    of 'Z': Win
-    else: raise
 
 
 func part1(input: string): int =

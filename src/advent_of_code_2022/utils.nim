@@ -1,6 +1,4 @@
-import std/strutils
-import std/strformat
-import std/os
+import std/[strutils, strformat, os]
 
 
 # Testing
@@ -34,3 +32,8 @@ func lines*(input: string): seq[string] = input.strip.split("\n")
 template sum*(sequence): untyped = foldl(sequence, a + b, 0)
 
 template product*(sequence): untyped = foldl(sequence, a * b, 1)
+
+func peek*[T](s: set[T]): T =
+    for x in s:
+        return x
+    raise

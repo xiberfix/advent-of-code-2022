@@ -1,17 +1,14 @@
+import std/[sequtils, strutils, algorithm]
 import ../../utils
-import std/sequtils
-import std/strutils
-import std/algorithm
 
 
 func part1(input: string): int =
-    var totals = input.blocks.mapIt(it.lines.map(parseInt).sum)
-    totals.max
+    let totals = input.blocks.mapIt(it.lines.map(parseInt).sum).sorted
+    totals[^1]
 
 
 func part2(input: string): int =
-    var totals = input.blocks.mapIt(it.lines.map(parseInt).sum)
-    totals.sort()
+    let totals = input.blocks.mapIt(it.lines.map(parseInt).sum).sorted
     totals[^1] + totals[^2] + totals[^3]
 
 
